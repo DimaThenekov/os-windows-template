@@ -31,7 +31,7 @@ def run_and_validate(output_filename, input_data, validate_output):
         process.stdin.close()
         stdout, stderr = process.communicate()
         if process.returncode != 0:
-            print(f"Error during test {i} with input data: {input_value}")
+            print(f"Error during test {(i+1)} with input data: {input_value}")
             print(stderr)
             continue
         validate_output(i+1, input_value, stdout)
@@ -41,8 +41,9 @@ def main():
     output_benchmark = "benchmark.exe"
     cpp_source = [str(file) for file in Path("./source").rglob("*.cpp")]
     cpp_benchmark = [str(file) for file in Path("./benchmark").rglob("*.cpp")]
-    input_data = ["cd build\n./benchmark.exe\nexit\n"]
+    input_data = ["cd build\n./main.exe\nexit\n"]
     output_data = ["__PATH__$ __PATH__\\build$ Sleep 5.5s...\nDone\nExecution time: __NUM__ seconds\n__PATH__\\build$ "]
+    
     def validate_output(test_number, input_value, output_value):
         cout = output_value.replace(os.path.dirname(os.path.abspath(__file__)), "__PATH__")
         cout = re.sub(r"\d+.\d+ seconds", "__NUM__ seconds", cout)
