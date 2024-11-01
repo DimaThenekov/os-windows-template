@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test
-        run: gcc --version
+        run: g++ --version
