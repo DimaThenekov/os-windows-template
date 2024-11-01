@@ -1,7 +1,8 @@
 // Copyright 2024 Loader
 
-#include <cstdio>
 #include <windows.h>
+
+#include <cstdio>
 
 int main() {
   printf("Sleep 5.5s...n");
