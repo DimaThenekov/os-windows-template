@@ -80,6 +80,7 @@ int main() {
 
   while (1) {
     print_prompt();
+    fflush(stdout);
     fgets(input, sizeof(input), stdin);
     input[strcspn(input, "\n")] = 0;  // Remove newline character
 
