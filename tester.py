@@ -54,7 +54,7 @@ def main():
 
     if compile_sources(output_filename, cpp_source):
         if compile_sources(output_benchmark, cpp_benchmark):
-            run_and_validate(output_filename, input_data, validate_output)
+            run_and_validate(output_benchmark, input_data, validate_output)
 
 if __name__ == "__main__":
     main()
