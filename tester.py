@@ -9,7 +9,7 @@ def compile_sources(output_filename, input_array_cpp_files):
     build_dir.mkdir(exist_ok=True)
     result = subprocess.run(["g++", "-o", str(build_dir / output_filename)] + input_array_cpp_files, capture_output=True, text=True)
     if result.returncode != 0:
-        print("Ошибка компиляции:")
+        print("Compilation error:")
         print(result.stderr)
         return False
     else:
@@ -18,7 +18,7 @@ def compile_sources(output_filename, input_array_cpp_files):
 def run_and_validate(output_filename, input_data, validate_output):
     executable_path = Path("build") / output_filename
     if not executable_path.exists():
-        print(f"Исполняемый файл {output_filename} не найден.")
+        print(f"Executable file {output_filename} not found.")
         return
     
     for i, input_value in enumerate(input_data):
@@ -31,7 +31,7 @@ def run_and_validate(output_filename, input_data, validate_output):
         process.stdin.close()
         stdout, stderr = process.communicate()
         if process.returncode != 0:
-            print(f"Ошибка при выполнении теста {i} с входными данными: {input_value}")
+            print(f"Error during test {i} with input data: {input_value}")
             print(stderr)
             continue
         validate_output(i+1, input_value, stdout)
@@ -47,9 +47,9 @@ def main():
         cout = output_value.replace(os.path.dirname(os.path.abspath(__file__)), "__PATH__")
         cout = re.sub(r"\d+.\d+ seconds", "__NUM__ seconds", cout)
         if cout == output_data[test_number-1]:
-            print(f"Тест {test_number} пройден")
+            print(f"Test {test_number} passed")
         else:
-            print(f"Тест {test_number} не пройден:\nвходные данные: {input_value}\nрезультат: {cout}\nожидалось: {output_data[test_number-1]}")
+            print(f"Test {test_number} failed:\nInput data: {input_value}\nResult: {cout}\nExpected: {output_data[test_number-1]}")
             exit(1)
 
     if compile_sources(output_filename, cpp_source):
