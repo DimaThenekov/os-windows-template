@@ -54,7 +54,7 @@ void execute_program(char *program, char **args) {
     WaitForSingleObject(pi.hProcess, INFINITE);
     end = clock();
 
-    time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+    time_spent = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     printf("Execution time: %.3f seconds\n", time_spent);
 
     GetExitCodeProcess(pi.hProcess, &exitCode);
