@@ -2,29 +2,21 @@
 
 ## Getting Started
 
-1. Open the project in the VSCode.
+1. Do `python tester.py`.
 
-2. Click "Reopen in Container" in a VSCode notification.
+## Run linter
 
-3. Do `bash ci/prepare.bash`.
+1. Do `pip install cpplint`.
 
-4. Do `bash ci/precommit.bash`.
+2. Do `find . -name *.hpp -o -name *.cpp -type f | xargs cpplint`.
 
-5. Replace `monolith` and `MONOLITH` with your project name.
+## Run formater
 
-6. Repeat steps 1-4.
+https://zed0.co.uk/clang-format-configurator/
 
-## Notes
+1. Do `sudo apt-get install clang-format`.
 
-- Application executable is available at `{build_dir}/source/{project_name}`.
-
-- To enable `benchmark` module configure the project with `{project_name}_BENCHMARK=ON`.
-
-- Benchmark executables are available at `{build_dir}/benchmark/{project_name}-bench-{bench_name}`.
-
-- Do not forget to use `Asan` build mode for debugging.
-
-- Press F5 to build and run tests under a debuger in VSCode UI.
+2. Do `find . -name '*.cpp' -o -name '*.hpp' | xargs clang-format --style=google --dry-run --Werror`.
 
 ## Thanks
 
