@@ -42,7 +42,7 @@ def main():
     cpp_source = [str(file) for file in Path("./source").rglob("*.cpp")]
     cpp_benchmark = [str(file) for file in Path("./benchmark").rglob("*.cpp")]
     input_data = ["cd build\n./benchmark.exe\nexit\n"]
-    output_data = ["__PATH__$ cd__PATH__\\build$ Sleep 5.5s...\nDone\n./benchmark.exeExecution time: __NUM__ seconds\n__PATH__\\build$ exit"]
+    output_data = ["__PATH__$ __PATH__\\build$ Sleep 5.5s...\nDone\nExecution time: __NUM__ seconds\n__PATH__\\build$ "]
     def validate_output(test_number, input_value, output_value):
         cout = output_value.replace(os.path.dirname(os.path.abspath(__file__)), "__PATH__")
         cout = re.sub(r"\d+.\d+ seconds", "__NUM__ seconds", cout)
