@@ -14,4 +14,4 @@ jobs:
         run: pip install cpplint
 
       - name: Run cpplint
-        run: find . -name *.h -o -name *.cc -type f | xargs cpplint
+        run: find . -name *.hpp -o -name *.cpp -type f | xargs cpplint
