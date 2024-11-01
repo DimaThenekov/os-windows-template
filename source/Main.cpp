@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+// Copyright 2023 <Your Name>
+
 #include <windows.h>
 #include <time.h>
+#include <stdlib.h>
+#include <string.h>
+#include <cstdio>
 
 void execute_cd(char *path) {
     if (strcmp(path, "..") == 0) {
@@ -19,7 +21,7 @@ void execute_ls() {
     if (hFind == INVALID_HANDLE_VALUE) {
         printf("Error: Unable to list directory.\n");
         return;
-    } 
+    }
     do {
         printf("%s\n", findFileData.cFileName);
     } while (FindNextFile(hFind, &findFileData) != 0);
@@ -38,10 +40,9 @@ void execute_program(char *program, char **args) {
     memset(&pi, 0, sizeof(pi));
 
     char cmd[1024] = "";
-    strcat(cmd, program);
+    snprintf(cmd, sizeof(cmd), "%s", program);
     for (int i = 1; args[i] != NULL; i++) {
-        strcat(cmd, " ");
-        strcat(cmd, args[i]);
+        snprintf(cmd + strlen(cmd), sizeof(cmd) - strlen(cmd), " %s", args[i]);
     }
 
     start = clock();
@@ -49,7 +50,7 @@ void execute_program(char *program, char **args) {
         printf("Error: Failed to start program %s\n", program);
         return;
     }
-    
+
     WaitForSingleObject(pi.hProcess, INFINITE);
     end = clock();
 
@@ -74,17 +75,18 @@ int main() {
     char input[1024];
     char *args[64];
     char *token;
+    char *saveptr;
 
     while (1) {
         print_prompt();
         fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = 0;
+        input[strcspn(input, "\n")] = 0;  // Remove newline character
 
         int i = 0;
-        token = strtok(input, " ");
+        token = strtok_r(input, " ", &saveptr);
         while (token != NULL) {
             args[i++] = token;
-            token = strtok(NULL, " ");
+            token = strtok_r(NULL, " ", &saveptr);
         }
         args[i] = NULL;
 
