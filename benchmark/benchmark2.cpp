@@ -5,7 +5,8 @@
 #include <set>
 #include <vector>
 
-void generateRandomData(const std::vector<int>& data, size_t size) {
+std::vector<int> generateRandomData(size_t size) {
+  std::vector<int> data;
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> dis(0, 99);
@@ -13,6 +14,7 @@ void generateRandomData(const std::vector<int>& data, size_t size) {
   for (size_t i = 0; i < size; ++i) {
     data.push_back(dis(gen));
   }
+  return data;
 }
 
 size_t deduplicate(const std::vector<int>& data) {
@@ -31,10 +33,10 @@ int main(int argc, char* argv[]) {
 
   size_t unique_count = 0;
   for (int i = 0; i < times; ++i) {
-    std::vector<int> data;
-    generateRandomData(data, array_size);
+    std::vector<int> data = generateRandomData(array_size);
     unique_count += deduplicate(data);
   }
+
   std::cout << ": " << unique_count << std::endl;  // anti-optimization
 
   return 0;
