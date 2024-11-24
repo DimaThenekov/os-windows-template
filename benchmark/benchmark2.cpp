@@ -5,7 +5,7 @@
 #include <set>
 #include <vector>
 
-void generateRandomData(std::vector<int>& data, size_t size) {
+void generateRandomData(const std::vector<int>& data, size_t size) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> dis(0, 99);
